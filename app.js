@@ -1,77 +1,135 @@
-const noBtn = document.getElementById("noBtn");
+const ASSETS = {
+  pandaMain:
+    "https://sspark.genspark.ai/cfimages?u1=4S%2BtGRkmkOYQCMt2KZ1Xp7M6dPCi97S4f6Gm80Tz1MCMgnmJu%2Bg5f6UkSjVFchvmUJiUp7zYkmM6%2FHKVYRAP54MB7onAQkZkxrKbykq8d3aoufZQr5k6gGeddHabAWMQJYC6tHPqeczgdQznpfYo95EI7A%3D%3D&u2=TccJGztSNYHOrKMz&width=2560",
+
+  pandaSuccess:
+    "https://sspark.genspark.ai/cfimages?u1=05hemmA%2FcR7bsIGYdMP62HI9FaUXa1r4RzI2azSOgj7FTdYFkHTqxYY8TC6Adg6IBJhLF9YCpYr%2FBcTXxJlkH1dRcZEJmSX8EVS5ZjjDyX6nigi%2BB6OYh9pKf9P8Qi2FsYbITVZg%2B6YsTfyVPJbsDi8%3D&u2=pWLreQwBxpM30t7O&width=2560",
+
+  heartsGif:
+    "https://sspark.genspark.ai/cfimages?u1=ah4G2CQ0bKv3vIxP97EUpjhDiIQQNGkYU673%2BxcDGnZT%2BoTxNSewDLVkCViga8LgNaPBUbf48b1TzGqGYS0cz%2BUTxXYw9ck%3D&u2=vGI%2FKAvb64ITi4x4&width=2560"
+};
+
+const pandaImg = document.getElementById("pandaImg");
+const pandaImg2 = document.getElementById("pandaImg2");
+const sparkGif = document.getElementById("sparkGif");
 const yesBtn = document.getElementById("yesBtn");
-const buttonsArea = document.getElementById("buttonsArea");
-const questionView = document.getElementById("questionView");
+const noBtn = document.getElementById("noBtn");
+const actionsBox = document.getElementById("actionsBox");
+const askView = document.getElementById("askView");
 const successView = document.getElementById("successView");
 const loveVideo = document.getElementById("loveVideo");
+const replayBtn = document.getElementById("replayBtn");
 
-let moveCount = 0;
+pandaImg.src = ASSETS.pandaMain;
+pandaImg2.src = ASSETS.pandaSuccess;
+sparkGif.src = ASSETS.heartsGif;
+
+let dodgeCount = 0;
 
 function moveNoButton() {
-  const areaRect = buttonsArea.getBoundingClientRect();
+  const areaRect = actionsBox.getBoundingClientRect();
   const btnRect = noBtn.getBoundingClientRect();
 
-  const maxX = areaRect.width - btnRect.width;
-  const maxY = areaRect.height - btnRect.height;
+  const maxX = Math.max(0, areaRect.width - btnRect.width - 6);
+  const maxY = Math.max(0, areaRect.height - btnRect.height - 6);
 
-  const randomX = Math.max(0, Math.floor(Math.random() * maxX));
-  const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+  const x = Math.floor(Math.random() * maxX);
+  const y = Math.floor(Math.random() * maxY);
 
-  noBtn.style.left = `${randomX}px`;
-  noBtn.style.top = `${randomY}px`;
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
   noBtn.style.right = "auto";
 
-  moveCount++;
+  dodgeCount++;
 
-  const messages = [
-    "هەوڵ مەدە 😝",
-    "ناتوانیت بیگری 😹",
-    "تەنها بەڵێ بکە 💕",
-    "تکایە ڕازی بە 🥺",
-    "منیش خەمگینم 💜"
+  const texts = [
+    "ئەی نا 😝",
+    "هێشتا نا 🙈",
+    "تەنها بەڵێ بکە 🥹",
+    "دڵم مەشکێنە 💔",
+    "تکایە ڕازی بە 💕",
+    "باشە... بەڵێ بکە 😭"
   ];
 
-  noBtn.textContent = messages[moveCount % messages.length];
+  noBtn.textContent = texts[dodgeCount % texts.length];
+
+  noBtn.animate(
+    [
+      { transform: "scale(1)" },
+      { transform: "scale(1.07)" },
+      { transform: "scale(1)" }
+    ],
+    { duration: 180, easing: "ease-out" }
+  );
 }
 
-["mouseenter", "touchstart"].forEach(eventType => {
-  noBtn.addEventListener(eventType, (e) => {
+["mouseenter", "touchstart", "click"].forEach((eventName) => {
+  noBtn.addEventListener(eventName, (e) => {
     e.preventDefault();
     moveNoButton();
   });
 });
 
 yesBtn.addEventListener("click", () => {
-  questionView.style.display = "none";
-  successView.style.display = "block";
+  askView.style.display = "none";
+  successView.classList.add("show");
+
+  createHeartBurst();
 
   if (loveVideo) {
-    loveVideo.play().catch(() => {});
+    loveVideo.muted = false;
+    const playPromise = loveVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // if autoplay blocked on some mobile browsers, controls stay available
+      });
+    }
   }
 
-  createConfetti();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-function createConfetti() {
-  for (let i = 0; i < 36; i++) {
-    const confetti = document.createElement("span");
-    confetti.textContent = ["💜", "🤍", "💕", "✨", "🫶"][Math.floor(Math.random() * 5)];
-    confetti.style.position = "fixed";
-    confetti.style.left = `${Math.random() * 100}vw`;
-    confetti.style.top = `-20px`;
-    confetti.style.fontSize = `${18 + Math.random() * 16}px`;
-    confetti.style.zIndex = "9999";
-    confetti.style.pointerEvents = "none";
-    confetti.style.transition = `transform ${2 + Math.random() * 2}s linear, top ${2 + Math.random() * 2}s linear, opacity 0.5s`;
-    document.body.appendChild(confetti);
+replayBtn.addEventListener("click", () => {
+  askView.style.display = "block";
+  successView.classList.remove("show");
+  noBtn.style.right = "16px";
+  noBtn.style.left = "auto";
+  noBtn.style.top = "24px";
+  noBtn.textContent = "هێشتا نا 🙈";
+  dodgeCount = 0;
+
+  if (loveVideo) {
+    loveVideo.pause();
+    loveVideo.currentTime = 0;
+  }
+});
+
+function createHeartBurst() {
+  const icons = ["💜", "🤍", "💕", "✨", "💞", "🫶"];
+  const total = 34;
+
+  for (let i = 0; i < total; i++) {
+    const el = document.createElement("span");
+    el.textContent = icons[Math.floor(Math.random() * icons.length)];
+    el.style.position = "fixed";
+    el.style.left = `${Math.random() * 100}vw`;
+    el.style.top = `${70 + Math.random() * 20}vh`;
+    el.style.fontSize = `${16 + Math.random() * 18}px`;
+    el.style.zIndex = "9999";
+    el.style.pointerEvents = "none";
+    el.style.transition =
+      `transform ${1.8 + Math.random() * 1.2}s ease-out, ` +
+      `opacity ${1.8 + Math.random() * 1.2}s ease-out, ` +
+      `top ${1.8 + Math.random() * 1.2}s ease-out`;
+
+    document.body.appendChild(el);
 
     requestAnimationFrame(() => {
-      confetti.style.top = "110vh";
-      confetti.style.transform = `translateX(${(Math.random() - 0.5) * 160}px) rotate(${Math.random() * 720}deg)`;
-      confetti.style.opacity = "0.2";
+      el.style.transform = `translate(${(Math.random() - 0.5) * 180}px, -${180 + Math.random() * 260}px) rotate(${Math.random() * 360}deg)`;
+      el.style.opacity = "0";
+      el.style.top = `${10 + Math.random() * 20}vh`;
     });
 
-    setTimeout(() => confetti.remove(), 4500);
+    setTimeout(() => el.remove(), 3200);
   }
 }
-
