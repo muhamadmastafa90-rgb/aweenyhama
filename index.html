@@ -1,89 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luminara Universe</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: white;
-            overflow-x: hidden;
-            background: url('https://cdn.discordapp.com/attachments/1368567818982916106/1442496893044133998/IMG_6492.png?ex=6925a56b&is=692453eb&hm=8f65c14e66dff340db848bc320f139da96058687c2f6fb22c2d411b36415f573&') no-repeat center center fixed;
-            background-size: cover;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ببوورەوە لێم 💜</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Arial", sans-serif;
+    }
 
-        header {
-            width: 100%;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 18px;
-        }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 20% 20%, #ffd6e7 0 8px, transparent 9px),
+        radial-gradient(circle at 80% 30%, #ffc2da 0 10px, transparent 11px),
+        radial-gradient(circle at 30% 75%, #ffe0ec 0 9px, transparent 10px),
+        radial-gradient(circle at 70% 80%, #ffd0e2 0 7px, transparent 8px),
+        linear-gradient(135deg, #fff1f7, #ffdce9, #ffeef5);
+      background-size: 180px 180px, 220px 220px, 200px 200px, 170px 170px, cover;
+      position: relative;
+    }
 
-        header a {
-            text-decoration: none;
-            color: white;
-            margin-left: 25px;
-            opacity: 0.9;
-        }
+    .floating-hearts span {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      opacity: 0.6;
+      user-select: none;
+    }
 
-        .center {
-            text-align: left;
-            margin-top: 180px;
-            margin-left: 80px;
-        }
+    .floating-hearts span:nth-child(1) { left: 8%;  top: 90%; animation-duration: 11s; }
+    .floating-hearts span:nth-child(2) { left: 20%; top: 95%; animation-duration: 14s; }
+    .floating-hearts span:nth-child(3) { left: 35%; top: 92%; animation-duration: 10s; }
+    .floating-hearts span:nth-child(4) { left: 50%; top: 97%; animation-duration: 13s; }
+    .floating-hearts span:nth-child(5) { left: 62%; top: 93%; animation-duration: 12s; }
+    .floating-hearts span:nth-child(6) { left: 78%; top: 96%; animation-duration: 15s; }
+    .floating-hearts span:nth-child(7) { left: 90%; top: 94%; animation-duration: 11s; }
 
-        .title {
-            font-size: 70px;
-            font-weight: bold;
-            text-shadow: 0 0 25px white;
-        }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(1); opacity: 0.25; }
+      50%  { opacity: 0.7; }
+      100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+    }
 
-        .owner {
-            margin-top: 10px;
-            font-size: 20px;
-            letter-spacing: 1px;
-        }
+    .window {
+      width: min(92vw, 430px);
+      background: #f6e8ee;
+      border: 4px solid #4a3944;
+      border-radius: 26px;
+      box-shadow: 0 18px 45px rgba(93, 49, 75, 0.25);
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+      animation: popIn 0.7s ease;
+    }
 
-        .join-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 30px;
-            font-size: 20px;
-            color: black;
-            background: white;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+    @keyframes popIn {
+      from {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
 
-        .join-btn:hover {
-            background: #ddd;
-        }
-    </style>
+    .title-bar {
+      background: linear-gradient(to right, #f7b3ca, #f48fb7);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #3a2430;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.15);
+    }
+
+    .dot.red { background: #ff7b93; }
+    .dot.yellow { background: #ffd36c; }
+    .dot.green { background: #83e38f; }
+
+    .content {
+      padding: 22px 20px 26px;
+      text-align: center;
+      position: relative;
+      min-height: 480px;
+    }
+
+    .main-image {
+      width: 100%;
+      max-width: 270px;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 26px;
+      border: 4px solid #4a3944;
+      background: #fff;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+    }
+
+    .message {
+      font-size: 29px;
+      font-weight: 800;
+      color: #5e3249;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .sub {
+      font-size: 17px;
+      color: #7d5269;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .buttons-area {
+      position: relative;
+      width: 100%;
+      height: 130px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 18px;
+      padding: 14px 26px;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, #86efac, #4ade80);
+      color: #194d2f;
+      position: absolute;
+      left: 20%;
+      top: 28px;
+    }
+
+    #noBtn {
+      background: linear-gradient(135deg, #f3f4f6, #d1d5db);
+      color: #374151;
+      position: absolute;
+      right: 20%;
+      top: 28px;
+    }
+
+    .success {
+      display: none;
+      animation: fadeIn 0.7s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .success h2 {
+      font-size: 32px;
+      color: #5b2744;
+      margin: 14px 0 10px;
+    }
+
+    .success p {
+      color: #7a4f65;
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .love-text {
+      font-size: 28px;
+      color: #ff5b95;
+      font-weight: 900;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .mini-hearts {
+      margin-top: 10px;
+      font-size: 26px;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+
+    .video-box {
+      margin-top: 14px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 4px solid #4a3944;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+
+    .video-box video {
+      width: 100%;
+      display: block;
+      max-height: 360px;
+      background: #000;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 15px;
+      color: #9b6f84;
+    }
+
+    @media (max-width: 500px) {
+      .content {
+        min-height: 510px;
+        padding: 18px 14px 20px;
+      }
+
+      .message {
+        font-size: 24px;
+      }
+
+      .sub {
+        font-size: 15px;
+      }
+
+      #yesBtn {
+        left: 10%;
+      }
+
+      #noBtn {
+        right: 10%;
+      }
+
+      .main-image {
+        max-width: 230px;
+        height: 230px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="left">
-            <a href="#">Discord Server</a>
-        </div>
-        <div class="right">
-            <a href="#">Name</a>
-            <a href="#">Server Link</a>
-        </div>
-    </header>
 
-    <div class="center">
-        <div class="title">LUMINARA<br>UNIVERSE</div>
-        <div class="owner">OWNERSHIP ~ DAVID</div>
-        <a class="join-btn" href="YOUR_DISCORD_INVITE">Join Server</a>
+  <div class="floating-hearts">
+    <span>💜</span>
+    <span>🤍</span>
+    <span>💗</span>
+    <span>🫶</span>
+    <span>💞</span>
+    <span>💕</span>
+    <span>✨</span>
+  </div>
+
+  <div class="window" id="windowBox">
+    <div class="title-bar">
+      <div class="title-left">
+        <div class="dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <span>LOVE.exe</span>
+      </div>
+      <span>💜</span>
     </div>
+
+    <div class="content">
+      <div id="questionView">
+        <img
+          class="main-image"
+          src="https://www.genspark.ai/api/files/s/sqGsWu9F"
+          alt="cute love"
+        />
+
+        <div class="love-text">LOVE ♡♡</div>
+        <div class="message">ئایا لێم دەبووریتەوە؟</div>
+        <div class="sub">
+          تۆ خۆشەویستی منیت...
+          تکایە تووڕە مەبە 💗
+        </div>
+
+        <div class="buttons-area" id="buttonsArea">
+          <button class="btn" id="yesBtn">بەڵێ 💖</button>
+          <button class="btn" id="noBtn">نەخێر 🙈</button>
+        </div>
+      </div>
+
+      <div class="success" id="successView">
+        <img
+          class="main-image"
+          src="https://www.genspark.ai/api/files/s/sqGsWu9F"
+          alt="love success"
+        />
+
+        <h2>سوپاس گیانم 😭💜</h2>
+        <p>
+          ئێستا دڵم ئارام بووەوە...  
+          من هەمیشە خۆشم دەوێیت 🫶
+        </p>
+
+        <div class="video-box">
+          <video id="loveVideo" controls autoplay loop playsinline>
+            <source src="https://www.genspark.ai/api/files/s/AJTVEUcE" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="mini-hearts">💜 🤍 💕 ✨</div>
+        <div class="footer-note">for my love only</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
